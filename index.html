@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game Scorekeeper</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Dice Game Scorekeeper</h1>
+            <p class="app-subtitle">Track your scores with ease</p>
+        </header>
+
+        <main>
+            <!-- Game Controls (shown during game) - Moved to Top -->
+            <div id="gameControls" class="game-controls" style="display: none;">
+                <button class="btn btn-primary" id="newGameBtn">New Game</button>
+                <button class="btn btn-secondary" id="calculateScoresBtn">Calculate</button>
+                <div class="btn-with-hint">
+                    <button class="btn btn-secondary" id="resetScoresBtn">Reset Scores</button>
+                    <span class="hint-text">(Double-click to reset)</span>
+                </div>
+            </div>
+
+            <!-- Setup Section -->
+            <section id="setupSection" class="setup-section">
+                <div class="setup-controls">
+                    <div class="form-group">
+                        <label for="playerCount">Number of Players (1-6)</label>
+                        <input type="number" id="playerCount" min="1" max="6" value="2">
+                    </div>
+                </div>
+                <div id="playerNamesContainer" class="player-names-container">
+                    <!-- Dynamic inputs will be generated here -->
+                </div>
+                <div class="setup-actions">
+                    <button class="btn btn-primary" id="startGameBtn">Start Game</button>
+                </div>
+            </section>
+
+            <!-- Game Board -->
+            <div id="playersGrid" class="players-grid"></div>
+
+            <!-- Results Section (Hidden by default) - Moved to Bottom -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <h2>Final Standings</h2>
+                <div id="standingsList" class="standings-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
