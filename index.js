@@ -437,24 +437,7 @@ function createCellHTML(player, playerIndex, row, rowIndex, column) {
       >
   `;
 
-  // Add "One Roll" checkbox for figure rows
-  if (row.type === 'figure' && !isDisabled) {
-    const checkboxId = `oneroll-${playerIndex}-${column}-${row.id}`;
-    cellHTML += `
-      <div class="checkbox-container">
-        <input 
-          type="checkbox" 
-          id="${checkboxId}"
-          ${cell.oneRoll ? 'checked' : ''}
-          data-player="${playerIndex}"
-          data-column="${column}"
-          data-row="${row.id}"
-        >
-        <label for="${checkboxId}">1 roll</label>
-      </div>
-    `;
-  }
-
+  // Checkbox removed - using double-click on input instead
   cellHTML += `</td>`;
   return cellHTML;
 }
@@ -518,12 +501,7 @@ function attachEventListeners(card, player, playerIndex) {
     input.addEventListener('change', handleScoreInput);
     input.addEventListener('contextmenu', handleRightClick);
     input.addEventListener('focus', handleFocus);
-  });
-
-  // One roll checkboxes
-  const checkboxes = card.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', handleOneRollToggle);
+    input.addEventListener('dblclick', handleOneRollDoubleClick);
   });
 }
 
@@ -688,16 +666,21 @@ function handleRightClick(e) {
   }
 }
 
-// Handle one roll checkbox toggle
-function handleOneRollToggle(e) {
+// Handle double-click to toggle "One Roll" status (replacing checkbox)
+function handleOneRollDoubleClick(e) {
   const playerIndex = parseInt(e.target.dataset.player);
   const column = e.target.dataset.column;
   const rowId = e.target.dataset.row;
 
+  // Only applicable to Figure rows
+  const row = ROWS.find(r => r.id === rowId);
+  if (!row || row.type !== 'figure') return;
+
   const player = gameState.players[playerIndex];
   const cell = player.scores[column][rowId];
 
-  cell.oneRoll = e.target.checked;
+  // Toggle state
+  cell.oneRoll = !cell.oneRoll;
 
   saveGameState();
   renderPlayers();
