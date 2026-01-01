@@ -636,6 +636,9 @@ function handleScoreInput(e) {
 
   saveGameState();
   renderPlayers();
+  if (scoresVisible) {
+    updateStandings();
+  }
 }
 
 // Handle right-click to cross out a cell
@@ -679,6 +682,9 @@ function handleRightClick(e) {
 
     saveGameState();
     renderPlayers();
+    if (scoresVisible) {
+      updateStandings();
+    }
   }
 }
 
@@ -695,6 +701,9 @@ function handleOneRollToggle(e) {
 
   saveGameState();
   renderPlayers();
+  if (scoresVisible) {
+    updateStandings();
+  }
 }
 
 // Calculate column total (sum of all subtotals)
